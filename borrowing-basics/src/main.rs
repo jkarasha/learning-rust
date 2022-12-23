@@ -4,8 +4,14 @@ struct Person {
     name: String,
 }
 
-fn congratulate(person: Person) {
+fn congratulate(person: &Person) {
     println!("Congratulations, {} on your recent promotion!", person.name)
+}
+
+//Can you return a "borrowed" value from a function?
+fn get_name() -> &str {
+    let name = String::from("Joe");
+    &name
 }
 
 fn main() {
@@ -13,9 +19,13 @@ fn main() {
         name: String::from("Joe"),
     };
     //
-    congratulate(person.clone());
+    congratulate(&person);
     // this will result in a borrowed here after move error
     // using .clone() on person doesn't work, unless you implment the method.
     // But there's a better way!
     println!("Can we still congratulate {} here?", person.name);
+
+    // can we borrow from get_name?
+    let my_name = get_name();
+
 }
