@@ -19,6 +19,10 @@ fn get_name() -> String {
     String::from("Joe")
 }
 
+fn pluralize(singular: &str) -> String {
+    singular.to_owned() + "s"
+}
+
 fn main() {
     let person = Person {
         name: String::from("Joe"),
@@ -40,4 +44,14 @@ fn main() {
     // can we borrow from get_name?
     let my_name = get_name();
     println!("My name is {}", my_name);
+
+    // Update previous exercice to use borrowing instead of cloning
+    let s = String::from("book");
+    let pluralized = pluralize(&s);
+
+    println!(
+        "I have one {}, you have two {}",
+        s,
+        pluralized,
+    );
 }
