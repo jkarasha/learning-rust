@@ -15,9 +15,8 @@ fn congratulate(person: &Person) {
 } */
 
 //Can you return a "borrowed" value from a function?
-fn get_name() -> &str {
-    let name = String::from("Joe");
-    &name
+fn get_name() -> String {
+    String::from("Joe")
 }
 
 fn main() {
@@ -40,5 +39,5 @@ fn main() {
 
     // can we borrow from get_name?
     let my_name = get_name();
-
+    println!("My name is {}", my_name);
 }
