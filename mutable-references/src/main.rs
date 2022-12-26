@@ -1,19 +1,24 @@
 #[derive(Debug)]
-struct Bucket {
-    liters: u32
+
+struct CarPool {
+    passengers: Vec<String>
 }
 
-fn pour(source: &mut Bucket, target: &mut Bucket, amount: u32) {
-    source.liters -= amount;
-    target.liters += amount;
+impl CarPool {
+    //in order to update the object state, we have to make self mutable.
+    fn pick_up(&mut self, name: String) {
+        self.passengers.push(name);
+    }
 }
-
 fn main() {
-    let mut source_bucket = Bucket { liters: 15 };
-    let mut target_bucket = Bucket { liters: 5 };
 
-    pour(&mut source_bucket, &mut target_bucket, 5);
+    let mut monday_car_pool = CarPool {
+        passengers: vec![],
+    };
 
-    println!("Source bucket: {:?}", source_bucket);
-    println!("Target bucket: {:?}", target_bucket);
+    monday_car_pool.pick_up(String::from("Joe"));
+    println!("Current carpool state {:?}", monday_car_pool);
+
+    monday_car_pool.pick_up(String::from("Jessy"));
+    println!("Current carpool state {:?}", monday_car_pool);
 }
