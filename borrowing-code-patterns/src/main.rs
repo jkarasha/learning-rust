@@ -1,28 +1,33 @@
-// using mutable borrows
+// using temporary variable to resolve immutable + mutable borrow error.
+pub struct Player {
+    score: i32
+}
+
+// define a couple of object functions
+impl Player {
+    // Set score takes in a mutable self reference.
+    pub fn set_score(&mut self, new_score: i32) {
+        self.score = new_score;
+    }
+    // Get Score
+    pub fn score(&self) -> i32 {
+        self.score
+    }
+    // Initialize a zero score user.
+    pub fn new() -> Self {
+        Player { score: 0 }
+    }
+}
 
 fn main() {
-    let mut list = vec![1, 2, 3];
-
-    {
-        // example of immutable borrows with explicit scope definition.
-        // We want to be explicit in our intent
-        // These immutable borrows scope last only for the nested scope duration.
-        let list_first = list.first();
-        let list_last = list.last();
-
-
-        // We are using both mutable and immutable borrows
-        // Why doesn't this example throw E0502?
-        // Because the mutation happens inline, no variable is left holding on to the value.
-        
-        println!(
-            "The first element is {:?} and the last is {:?}",
-            list_first,
-            list_last,
-        );
-    }
-
-    // Since we explicity defined the scope of the immutable borrows, this code should work
-    *list.first_mut().expect("list was empty") += 1;
-
+    let mut steph_curry = Player::new();
+    // We attempt to increment the players score.
+    // Notice this is both a mutable-borrow(set new score) and and immutable-borrow (get current score)
+    // We'll use temp_variable in order to be more explicit about it.
+    let current_score = steph_curry.score();    
+    steph_curry.set_score(current_score + 3);
+    let current_score = steph_curry.score();    
+    steph_curry.set_score(current_score + 2);
+    //
+    println!("Points: {}", steph_curry.score());
 }
