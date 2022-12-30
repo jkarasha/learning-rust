@@ -1,8 +1,13 @@
+//show how to use custom panics from  external crates 
+//make sure to include dependency on http in cargo.toml file.
+extern crate http;
 
+use http::header::HeaderName;
 
 fn main() {
-    let v = vec![1, 2, 3];
-    let index = 50;
-    //expected error: thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 50', src/main.rs:7:53
-    println!("The value at index {} is {}.", index, v[index]);
+    // http headers cannot include special characters.
+    //thread 'main' panicked at 'invalid header name', /home/jokarash/.cargo/registry/src/github.com-1ecc6299db9ec823/http-0.1.10/src/header/name.rs:1656:23
+    //let _h = HeaderName::from_static("special! characters!");
+    let _h = HeaderName::from_static("no-special-characters");
+
 }
