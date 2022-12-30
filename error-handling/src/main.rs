@@ -1,27 +1,13 @@
-#[derive(Debug)]
-enum Platform {
-    Windows,
-    Linux,
-    MacOS
-}
+//show how to use custom panics from  external crates 
+//make sure to include dependency on http in cargo.toml file.
+extern crate http;
 
-impl Platform {
-    fn parse(platform_arg: &str) -> Platform {
-        if platform_arg == "windows" {
-            Platform::Windows
-        } else if platform_arg == "linux" {
-            Platform::Linux
-        } else if platform_arg == "mac" {
-            Platform::MacOS
-        } else {
-            panic!("unknown platform: {}. Valid values: [windows, linux, mac].", platform_arg);
-        }
-    }
-}
+use http::header::HeaderName;
 
 fn main() {
-    //defaults to windows..
-    let platform_arg = "macos";
-    let platform = Platform::parse(platform_arg);
-    println!("Producing output for {:?}.", platform);
+    // http headers cannot include special characters.
+    //thread 'main' panicked at 'invalid header name', /home/jokarash/.cargo/registry/src/github.com-1ecc6299db9ec823/http-0.1.10/src/header/name.rs:1656:23
+    //let _h = HeaderName::from_static("special! characters!");
+    let _h = HeaderName::from_static("no-special-characters");
+
 }
