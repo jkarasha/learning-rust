@@ -1,33 +1,23 @@
-// using temporary variable to resolve immutable + mutable borrow error.
-pub struct Player {
-    score: i32
-}
-
-// define a couple of object functions
-impl Player {
-    // Set score takes in a mutable self reference.
-    pub fn set_score(&mut self, new_score: i32) {
-        self.score = new_score;
-    }
-    // Get Score
-    pub fn score(&self) -> i32 {
-        self.score
-    }
-    // Initialize a zero score user.
-    pub fn new() -> Self {
-        Player { score: 0 }
-    }
-}
+// using Map's Entry-API to resolve immutable + mutable borrow error.
+use std::collections::HashMap;
 
 fn main() {
-    let mut steph_curry = Player::new();
-    // We attempt to increment the players score.
-    // Notice this is both a mutable-borrow(set new score) and and immutable-borrow (get current score)
-    // We'll use temp_variable in order to be more explicit about it.
-    let current_score = steph_curry.score();    
-    steph_curry.set_score(current_score + 3);
-    let current_score = steph_curry.score();    
-    steph_curry.set_score(current_score + 2);
-    //
-    println!("Points: {}", steph_curry.score());
+    
+    let text = String::from("Hello world, Hello again!");
+    // We'll use Map to count the word frequency.
+    let mut freqs = HashMap::new();
+    for word in text.split_whitespace() {
+        //This is much explicit
+        *freqs.entry(word).or_insert(0) += 1;
+        // instead of trying to use a match
+        /* match freqs.get_mut(word) {
+            Some(value) => *value += 1,
+            None => {
+                // We t
+                freqs.insert(word, 1);
+            },
+        } */
+    }
+
+    println!("Word frequencies: {:#?}", freqs);
 }
