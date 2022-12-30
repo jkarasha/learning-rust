@@ -1,4 +1,4 @@
-//use enums to demonstrate unreachable code
+//use enums to demonstrate unimplemented code
 enum DoorState {
     Opened,
     Closed
@@ -12,10 +12,12 @@ enum DoorAction {
 fn take_action(current_state: DoorState, action: DoorAction) {
     match (current_state, action) {
         (DoorState::Opened, DoorAction::Close) => {
-            println!("Door closing!")
+            //println!("Door closing!")
+            unimplemented!()
         },
         (DoorState::Closed, DoorAction::Open) => {
-            println!("Door opening!")
+            //println!("Door opening!")
+            unimplemented!()
         },
         _ => unreachable!()
     }
