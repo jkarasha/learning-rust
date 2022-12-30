@@ -1,8 +1,27 @@
-//error handling using panic macro.
+#[derive(Debug)]
+enum Platform {
+    Windows,
+    Linux,
+    MacOS
+}
+
+impl Platform {
+    fn parse(platform_arg: &str) -> Platform {
+        if platform_arg == "windows" {
+            Platform::Windows
+        } else if platform_arg == "linux" {
+            Platform::Linux
+        } else if platform_arg == "mac" {
+            Platform::MacOS
+        } else {
+            panic!("unknown platform: {}. Valid values: [windows, linux, mac].", platform_arg);
+        }
+    }
+}
+
 fn main() {
-    //Will throw error/exception: thread 'main' panicked at 'Something's not right here', src/main.rs:3:5
-    // panic!("Something's not right here");
-    // You can also interpolate string values when calling panic.
-    let age = "unknown";
-    panic!("Something's not right here. We got the value '{}' for age!", age);
+    //defaults to windows..
+    let platform_arg = "macos";
+    let platform = Platform::parse(platform_arg);
+    println!("Producing output for {:?}.", platform);
 }
