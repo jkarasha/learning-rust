@@ -18,6 +18,8 @@ fn main() {
     //However trying to read it's name attribute results in an error, type mismatch
     //error[E0609]: no field `name` on type `Result<Person, serde_json::Error>`
     // println!("Person's first name is: {:?}", first.name);
+
+    //inner is a user defined variable, could be called anything.
     let first_inner = match first {
         Ok(inner) => inner,
         _ => unimplemented!(),
