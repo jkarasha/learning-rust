@@ -1,10 +1,21 @@
-//Based on it's signature, last() call returns an option Either (Some) or (None)
-//pub fn last_mut(&mut self) -> Option<&mut T>
+extern crate serde;
+extern crate serde_json;
+
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Deserialize, Debug)]
+struct Person {
+    name: String,
+}
 
 fn main() {
-    let nonempty_list = vec!['a', 'b', 'c'];
-    println!("nonempty list's last element is : {:?}", nonempty_list.last());
-    
-    let empty_list: Vec<char> = vec![];
-    println!("empty list's last element is : {:?}", empty_list.last());
+    let first = serde_json::from_str::<Person>(r#"{
+        "name": "Margaret Kanyoko"
+    }"#);
+    // returns an Result object with a valid (Ok) response.
+    println!("Person is: {:?}", first);
+    //However trying to read it's name attribute results in an error, type mismatch
+    //error[E0609]: no field `name` on type `Result<Person, serde_json::Error>`
+    println!("Person's first name is: {:?}", first.name);
 }
