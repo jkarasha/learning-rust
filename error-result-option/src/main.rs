@@ -1,26 +1,10 @@
-//Examples of how to use Result & Option in error handling
-//Result returns a success/failure. (Ok) or (Err)
-//Option returns a sucess/nothing. (Some) or (None)
-
-extern crate serde;
-extern crate serde_json;
-
-#[macro_use]
-extern crate serde_derive;
-
-#[derive(Deserialize, Debug)]
-struct Person  {
-    name: String,
-}
+//Based on it's signature, last() call returns an option Either (Some) or (None)
+//pub fn last_mut(&mut self) -> Option<&mut T>
 
 fn main() {
-    let first = serde_json::from_str::<Person>(r#"{
-        "name": "Margaret Kanyoko"
-    }"#);
-    println!("first = {:?}", first);
-    // This generates invalid json
-    let second = serde_json::from_str::<Person>(r#"{
-        "name": "Margaret Kanyoko",
-    }"#);
-    println!("second = {:?}", second);
+    let nonempty_list = vec!['a', 'b', 'c'];
+    println!("nonempty list's last element is : {:?}", nonempty_list.last());
+    
+    let empty_list: Vec<char> = vec![];
+    println!("empty list's last element is : {:?}", empty_list.last());
 }
