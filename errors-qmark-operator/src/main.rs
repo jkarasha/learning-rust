@@ -5,10 +5,13 @@ fn save_status(text: &str) -> Result<i64, &'static str> {
         return Err("Status text is too long!")
     }
 
-    let record = match save_to_database(text) {
+    // the question mark operator was build to solve for this pattern
+    // the match below can be replaced with a single line.
+    /* let record = match save_to_database(text) {
         Ok(rec) => rec,
         Err(e) => return Err(e),
-    };
+    }; */
+    let record = save_to_database(text)?;
 
     Ok(record.id)
 }
