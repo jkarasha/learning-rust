@@ -11,7 +11,7 @@ struct Person {
 
 fn main() {
     let first = serde_json::from_str::<Person>(r#"{
-        "name": "Margaret Kanyoko"
+        "name": "Margaret Kanyoko",
     }"#);
     // returns an Result object with a valid (Ok) response.
     println!("Person is: {:?}", first);
@@ -20,8 +20,12 @@ fn main() {
     // println!("Person's first name is: {:?}", first.name);
 
     //inner is a user defined variable, could be called anything.
+    //in the event of an error, you can return custom types for more details.
     let first_inner = match first {
         Ok(inner) => inner,
+        Err(_) => Person {
+            name: String::from("unknown"),
+        },
         _ => unimplemented!(),
     };
 
