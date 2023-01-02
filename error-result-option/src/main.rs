@@ -23,10 +23,8 @@ fn main() {
     //in the event of an error, you can return custom types for more details.
     let first_inner = match first {
         Ok(inner) => inner,
-        Err(_) => Person {
-            name: String::from("unknown"),
-        },
-        _ => unimplemented!(),
+        Err(_) => panic!("couldn't parse JSON into Person!"),
+        _ => unimplemented!()
     };
 
     println!("First person is: {:?}", first_inner);
