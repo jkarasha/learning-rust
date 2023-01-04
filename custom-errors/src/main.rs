@@ -1,6 +1,8 @@
 //many times you have a function that can return different types of errors.
-//What will the error return type be??
-fn num_threads() -> Result<usize, ???> {
+use std::error::Error;
+use std::env;
+//We'll use Box<Error> to handle multiple errors in same function..
+fn num_threads() -> Result<usize, Box<dyn Error>> {
     //below line will return a VarErr??
     let s = env::var("NUM_THREADS")?;
     //below line will return IntParseError
@@ -9,4 +11,5 @@ fn num_threads() -> Result<usize, ???> {
 }
 
 fn main() {
+    println!("{:?}", num_threads());
 }
