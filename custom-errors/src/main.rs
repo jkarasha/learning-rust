@@ -50,8 +50,12 @@ impl From<io::Error> for DocumentServiceError {
     }
 }
 
+use std::result;
+
+pub type Result<T> = result::Result<T, DocumentServiceError>;
+
 //Why is this declared at public? Works either way
-pub fn create_document(filename: &str) -> Result<File, DocumentServiceError> {
+pub fn create_document(filename: &str) -> Result<File> {
     if num_documents_created_in_last_minute() > MAX_DOCS_CREATED_PER_MINUTE {
         return Err(DocumentServiceError::RateLimitExceeded);
     }
@@ -64,6 +68,13 @@ pub fn create_document(filename: &str) -> Result<File, DocumentServiceError> {
     Ok(file)
 }
 
+pub fn archive_document(filenam: &str) -> Result<()> {
+    unimplemented!();
+}
+
+pub fn list_documents() -> Result<Vec<File>> {
+    unimplemented!();
+}
 fn main () {
     println!("{:?}", create_document("docs.txt"));
 }
