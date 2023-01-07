@@ -9,13 +9,21 @@ struct Person {
     name: String,
 }
 
+impl Default for Person {
+    fn default() -> Self {
+        Person {
+            name: String::from("unknown"),
+        }
+    }
+}
+
 fn main() {
     let first = serde_json::from_str::<Person>(r#"{
         "name": "Margret Kanyoko",
     }"#);
 
-    //unwrap of use provided default.
-    let first_inner = first.unwrap_or(Person { name: String::from("unknown")});
+    //default type is provided by the struct
+    let first_inner = first.unwrap_or_default();
 
     println!("First's name = {:?}", first_inner.name);
 }
