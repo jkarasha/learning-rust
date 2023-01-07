@@ -1,9 +1,21 @@
+extern crate serde;
+extern crate serde_json;
+
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Deserialize, Debug)]
+struct Person {
+    name: String,
+}
+
 fn main() {
-    //wraps 25 inside of the option value
-    let option_value = Some(25);
-    if option_value.is_some() {
-        //unwrap the option value and extract 25
-        let inner = option_value.unwrap();
-        println!("Inner: {}", inner);
-    }
+    let first = serde_json::from_str::<Person>(r#"{
+        "name": "Margret Kanyoko",
+    }"#);
+
+    //unwrap of use provided default.
+    let first_inner = first.unwrap_or(Person { name: String::from("unknown")});
+
+    println!("First's name = {:?}", first_inner.name);
 }
