@@ -1,18 +1,17 @@
-//Struct shouldn't refer to themselves.
-//error[E0106]: missing lifetime specifier
-struct ListAndRef {
-    list: Vec<i32>,
-    first_two: &[i32],
-}
+use std::io;
+use std::collections::HashMap;
 
-fn return_list_and_first_two() -> ListAndRef {
-    let list_to_use= vec![100,200,300,400];
-
-    ListAndRef {
-        list: list_to_use,
-        first_two: &list_to_use,
-    }
-}
 fn main() {
-    println!("This shouldn't work!")
+    println!("Please enter some words to get a wordcount!");
+    
+    let mut input = String::new();
+    let mut counts = HashMap::new();
+    
+    io::stdin().read_line(&mut input).expect("Problem reading input!");
+
+    for word in input.split_whitespace() {
+        let count = counts.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("Counts = {:?}", counts);
 }
