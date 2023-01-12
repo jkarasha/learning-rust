@@ -1,10 +1,18 @@
-fn main() {
-    let list_a = vec![100,200,300,400];
-    {
-        let first_two = &list_a[0..2];
-        println!("The first two elements are: {:?}", first_two)
+//Struct shouldn't refer to themselves.
+//error[E0106]: missing lifetime specifier
+struct ListAndRef {
+    list: Vec<i32>,
+    first_two: &[i32],
+}
+
+fn return_list_and_first_two() -> ListAndRef {
+    let list_to_use= vec![100,200,300,400];
+
+    ListAndRef {
+        list: list_to_use,
+        first_two: &list_to_use,
     }
-    // move after use/assign
-    let list_b = list_a;
-    println!("The first two elements are: {:?}", list_b)
+}
+fn main() {
+    println!("This shouldn't work!")
 }
