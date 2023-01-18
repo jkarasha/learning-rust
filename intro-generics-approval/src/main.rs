@@ -6,16 +6,26 @@ pub struct Approval<T> {
 
 impl<T> Approval<T> {
     pub fn new(item: T) -> Approval<T> {
-        unimplemented!()
+        Approval {
+            item,
+            approved: false,
+        }
     }
     pub fn approve(&mut self) {
-        unimplemented!()
+        self.approved = true;
     }
     pub fn replace(self, other_item: T) -> Approval<T> {
-        unimplemented!()
+        Approval {
+            item: other_item,
+            approved: self.approved,
+        }
     }
     pub fn approved_item(&self) -> Option<&T> {
-        unimplemented!()
+        if self.approved {
+            Some(&self.item)
+        } else {
+            None
+        }
     }
 }
 
