@@ -29,6 +29,13 @@ impl<T> Approval<T> {
     }
 }
 
+use std::net::{IpAddr, Ipv4Addr};
+
 fn main() {
-    println!("Hello, world!");
+    let amount = 1000;
+    let mut approval_amount = Approval::new(amount);
+    assert!(approval_amount.approved_item().is_none());
+    approval_amount.approve();
+    assert_eq!(approval_amount.approved_item(), Some(&1000));
+    //
 }
