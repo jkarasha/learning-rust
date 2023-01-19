@@ -11,12 +11,15 @@ fn simulate_game<'a>(home: &'a str, away: &'a str) -> &'a str {
 
 fn main() {
     let team_one = String::from("Patriots");
-    {
+
+    let winner = {
         let team_two = String::from("Bills");
-        let winner = simulate_game(&team_one, &team_two);
-        println!("{} vs. {}: {} won", team_one, team_two, winner);
-    }
-    //if you tried to print the winner here, code will fail
-    //winner's lifetime is only within nested scope.
-    println!("I can't believe {} won", winner);
+        
+        //error[E0597]: `team2` does not live long enough
+        simulate_game(&team_one, &team_two)
+    };
+
+    //now both team_one and winner are available here.
+    //notice team_two is only available in the nested scope.
+    println!("I can't believe {:#?} won", winner);
 }
