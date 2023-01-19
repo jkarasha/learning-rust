@@ -16,7 +16,6 @@ fn main() {
         let winner = simulate_game(&team_one, &team_two);
         println!("{} vs. {}: {} won", team_one, team_two, winner);
     }
-    //if you tried to print the winner here, code will fail
-    //winner's lifetime is only within nested scope.
-    println!("I can't believe {} won", winner);
+    //only team_one's lifetime lasts this long.
+    println!("I can't believe {} won", team_one);
 }
