@@ -4,9 +4,9 @@ fn main() {
     println!("First two elements are {:?}", first_two);
 }
 
-//instead 'a trying adding 'static (static-lifetime)
-//error[E0515]: cannot return value referencing local variable `list`
+static LIST: [i32; 4] = [100,200,300,400];
+
+//switch to use a static list instead
 fn return_first_two() -> &'static [i32] {
-    let list = vec![100,200,300,400];
-    &list[0..2]
+    &LIST[0..2]
 }
